@@ -1,4 +1,3 @@
-import SearchField from "../components/SearchField";
 import Button from "../components/Button";
 import NavBar from "../components/NavBar";
 import { EXTERNAL_LINKS } from "../config";
