@@ -4,6 +4,8 @@ export default {
   theme: {
     extend: {
       colors: {
+
+        // Button Colors 
         primary: {
           DEFAULT: "#134dcd", // Primary Blue
           hover: "#1043b1", // Darker for hover
@@ -19,6 +21,10 @@ export default {
           hover: "#4b5563",
           active: "#374151",
         },
+        
+
+        // Background Colors
+        'midnight-navy': '#0a0f24',
       },
     },
   },
