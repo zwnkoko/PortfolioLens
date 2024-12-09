@@ -1,6 +1,6 @@
 import Button from "./Button";
 import { EXTERNAL_LINKS } from "../config";
-import { useState } from "react";
+//import { useState } from "react";
 
 const NavBar = () => {
   
@@ -9,11 +9,11 @@ const NavBar = () => {
     window.open(EXTERNAL_LINKS.github, "_blank"); 
   };
 
-  const [navOpen, setNavOpen] = useState(false);
+  /*const [navOpen, setNavOpen] = useState(false);
 
   const toggleNav = () => {
     setNavOpen(!navOpen);
-  }
+  }*/
 
   return (
       <>
