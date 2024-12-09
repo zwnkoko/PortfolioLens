@@ -1,11 +1,12 @@
 interface Props {
   value: string;
   prefix?: string;
+  altPrefix?: string;
   onClick: () => void;
   variant?: "primary" | "secondary" | "tertiary";
 }
 
-const Button = ({ value, prefix, onClick, variant = "primary" }: Props) => {
+const Button = ({ value, prefix, altPrefix, onClick, variant = "primary" }: Props) => {
   const variantClasses = {
     primary: "bg-primary hover:bg-primary-hover active:bg-primary-active",
     secondary:
@@ -16,13 +17,13 @@ const Button = ({ value, prefix, onClick, variant = "primary" }: Props) => {
   return (
     <button
       type="button"
-      className={`text-white font-bold rounded-md py-3 px-4 ${variantClasses[variant]}`}
+      className={`font-bold rounded-md py-3 px-4 ${variantClasses[variant]}`}
       id={value}
       onClick={onClick}
     >
       <div className="flex items-center">
         {prefix && (
-          <img src={prefix} alt={prefix} className="h-6 lg:h-10 pr-2" />
+          <img src={prefix} alt={altPrefix} className="h-6 pr-2" />
         )}
         <p className="text-xs lg:text-base">{value}</p>
       </div>
