@@ -21,7 +21,7 @@ const Home = () => {
         <Button value="Get Started" onClick={getStarted}/>
 
         <div className="pt-4 w-full overflow-x-hidden">
-          <div className="flex text-black font-semibold animate-scroll w-max">
+          <div className="flex text-black font-semibold animate-scroll w-max"  style={{ willChange: 'transform'}}>
             {/*original*/}
             <div className="min-w-36 mx-6">
               <TickerCard ticker="NVDA" closingPrice={223.41} historical={historicalData}/>
@@ -36,7 +36,7 @@ const Home = () => {
               <TickerCard ticker="MU" closingPrice={223.41} historical={historicalData}/>
             </div>
 
-
+            {/*duplicate*/}
             <div className="min-w-36 mx-6">
               <TickerCard ticker="NVDA" closingPrice={223.41} historical={historicalData}/>
             </div>
