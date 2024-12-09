@@ -29,10 +29,12 @@ export default {
       keyframes: {
         scroll:{
           '0%': { 
-            transform: 'translateX(0)' 
+            transform: 'translateX(0)', 
+            '-webkit-transform': 'translateX(0)',
           },
           '100%': { 
-            transform: 'translateX(-50%)' 
+            transform: 'translateX(-50%)',
+            '-webkit-transform': 'translateX(-50%)',
           },
         }
       },
