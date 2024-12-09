@@ -19,7 +19,7 @@ const NavBar = () => {
       <>
       
       {/* Default Nav bar*/}      
-      <nav className="text-white font-bold text-lg pt-2 hidden md:block">
+      <nav className="font-bold text-lg pt-2 hidden md:block">
         <div className="flex justify-between items-center ">
           <h1 className="lg:text-xl">
             Portfolio Lens
@@ -48,7 +48,7 @@ const NavBar = () => {
       </nav>
 
       {/* Mobile hamburger Nav bar*/}        
-      <nav className="flex justify-between items-center text-white font-bold md:hidden pt-4">
+      <nav className="flex justify-between items-cente font-bold md:hidden pt-4">
         {/* Hamburger Icon */}
         <div className="">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">

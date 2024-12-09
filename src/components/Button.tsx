@@ -17,7 +17,7 @@ const Button = ({ value, prefix, altPrefix, onClick, variant = "primary" }: Prop
   return (
     <button
       type="button"
-      className={`text-white font-bold rounded-md py-3 px-4 ${variantClasses[variant]}`}
+      className={`font-bold rounded-md py-3 px-4 ${variantClasses[variant]}`}
       id={value}
       onClick={onClick}
     >
