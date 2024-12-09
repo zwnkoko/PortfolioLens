@@ -1,3 +1,4 @@
+import Button from "../components/Button";
 import NavBar from "../components/NavBar";
 import Button from "../components/Button";
 import TickerCard from "../components/TickerCard";
