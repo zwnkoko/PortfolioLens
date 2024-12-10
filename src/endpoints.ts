@@ -1,7 +1,8 @@
-import dotenv from 'dotenv';
-
-// Initialize dotenv to read environment variables from .env file
-dotenv.config();
+// Conditionally load dotenv for local development
+if (process.env.NODE_ENV === 'development') {
+    const dotenv = require('dotenv');
+    dotenv.config();
+}
 
 export const historicalDataEP = (ticker: string): string => {
     const apiKey = process.env.API_KEY;
