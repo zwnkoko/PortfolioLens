@@ -14,15 +14,22 @@ const Home = () => {
 
   // iterate over tickers arr to fetch last 5 days closing values
   useEffect(() =>{
-    const tickerList = ["AAPL", "VOO", "MU", "QQQM", "NVDA", "AMD"];
-    //const tickerList = ["AAPL"]
-    tickerList.forEach((ticker) => {
-      const amd_price=fetchHomeTickers(ticker);
-      setFiveDaysPrice(prevState => ({
-        ...prevState,
-        [ticker]: {prices: amd_price}
-      }))
-    })
+    const fetchData = async () =>{
+      const tickerList = ["AAPL", "VOO", "MU", "QQQM", "NVDA", "AMD"];
+      //const tickerList = ["AAPL"]
+      for(const ticker of tickerList){
+        try{
+          const prices = await fetchHomeTickers(ticker);
+          setFiveDaysPrice(prevState => ({
+            ...prevState,
+            [ticker]: { prices }
+          }))
+        } catch(error){
+          console.error(`Error fetching data for ${ticker}:`, error);
+        }
+      }
+    }
+    fetchData();
   },[]);
   
   const getStarted = () =>{

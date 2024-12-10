@@ -3,8 +3,6 @@ import { historicalDataEP } from "../endpoints";
 export const fetchHomeTickers = async (ticker : string) => {
     const prices: {x: string, y: number}[] = [];
     const endPoint = historicalDataEP(ticker);
-    console.log(endPoint)
-
     try{
       const response = await fetch(endPoint);
       const data = await response.json();
