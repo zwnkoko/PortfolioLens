@@ -19,41 +19,42 @@ const Home = () => {
           Minimalistic Portfolio Tracker for Retail Investors
         </p>
         <Button value="Get Started" onClick={getStarted}/>
-
-        <div className="pt-4 w-full overflow-x-hidden">
+        
+        {/* Scroll animation - Normal viewport */}
+        <div className="pt-4 w-full overflow-x-hidden hidden md:block">
           <div className="flex text-black font-semibold animate-scroll w-max"  style={{ willChange: 'transform'}}>
-            {/*original*/}
             <div className="min-w-36 mx-6">
               <TickerCard ticker="NVDA" closingPrice={223.41} historical={historicalData}/>
             </div>
             <div className="min-w-36 mx-6">
               <TickerCard ticker="AAPL" closingPrice={223.41} historical={historicalData}/>
             </div>
-            <div className="w-36 mx-6">
+            <div className="min-w-36 mx-6">
               <TickerCard ticker="AMD" closingPrice={223.41} historical={historicalData}/>
             </div>
-            <div className="w-36 mx-6">
+            <div className="min-w-36 mx-6">
               <TickerCard ticker="MU" closingPrice={223.41} historical={historicalData}/>
             </div>
-
-            {/*duplicate*/}
-            <div className="min-w-36 mx-6">
-              <TickerCard ticker="NVDA" closingPrice={223.41} historical={historicalData}/>
-            </div>
-            <div className="min-w-36 mx-6">
-              <TickerCard ticker="AAPL" closingPrice={223.41} historical={historicalData}/>
-            </div>
-            <div className="w-36 mx-6">
-              <TickerCard ticker="AMD" closingPrice={223.41} historical={historicalData}/>
-            </div>
-            <div className="w-36 mx-6">
-              <TickerCard ticker="MU" closingPrice={223.41} historical={historicalData}/>
-            </div>
-
-
           </div>
           <p className="pt-4 text-xs text-center">*Last 5 days closing price as of 12/9/2024</p>
         </div>
+
+        {/* No animation view - Mobile viewport */}
+        <div className="pt-4 w-full overflow-x-hidden md:hidden">
+          <div className="flex flex-col text-black font-semibold space-y-6">
+            <div className="mx-14">
+              <TickerCard ticker="NVDA" closingPrice={223.41} historical={historicalData}/>
+            </div>
+            <div className="mx-14">
+              <TickerCard ticker="AAPL" closingPrice={223.41} historical={historicalData}/>
+            </div>
+            <div className="mx-14">
+              <TickerCard ticker="AMD" closingPrice={223.41} historical={historicalData}/>
+            </div>
+          </div>
+          <p className="pt-4 text-xs text-center">*Last 5 days closing price as of 12/9/2024</p>
+        </div>
+        
 
       </main>
 
