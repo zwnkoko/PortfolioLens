@@ -12,7 +12,7 @@ export default {
           active: "#0d358c", // Even darker for active
         },
         secondary: {
-          DEFAULT: "#D88B09", // Amber Gold (Complementary to Primary Blue)
+          DEFAULT: "#D88B09", // Amber Gold 
           hover: "#d97706", // Darker for hover
           active: "#b45309", // Even darker for active
         },
@@ -39,7 +39,7 @@ export default {
         }
       },
       animation:{
-        scroll: 'scroll 10s linear infinite',
+        scroll: 'scroll 10s linear infinite 1s',
       }
     },
   },
