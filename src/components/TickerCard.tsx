@@ -2,14 +2,14 @@ import { ResponsiveContainer, LineChart, Line, XAxis, YAxis } from "recharts";
 
 interface Props{
     ticker: string;
-    closingPrice: number;
-    historical: {date : string; close: number}[];
+    axisValues: {x : string; y: number}[];
 }
 
-const TickerCard = ({ ticker, closingPrice, historical} : Props) => {
+const TickerCard = ({ ticker, axisValues} : Props) => {
 
-    const minClose = Math.min(...historical.map(d => d.close)); 
-    const maxClose = Math.max(...historical.map(d => d.close));
+    const minClose = Math.min(...axisValues.map(d=>d.y));
+    const maxClose = Math.max(...axisValues.map(d=>d.y));
+    const closingPrice = axisValues[axisValues.length - 1].y;
 
     return(
         <div className={`flex flex-col text-xs p-2 rounded-lg shadow-xl bg-[#1f1e1e] text-white space-y-2 items-center w-full`}>
@@ -19,10 +19,10 @@ const TickerCard = ({ ticker, closingPrice, historical} : Props) => {
             </div>
             
             <ResponsiveContainer width="100%" height={25}>
-                <LineChart data={historical}>
-                    <XAxis dataKey="date" hide={true}/> 
+                <LineChart data={axisValues}>
+                    <XAxis dataKey="x" hide={true}/> 
                     <YAxis domain={[minClose, maxClose]} hide={true}/>
-                    <Line type="monotone" dataKey="close" stroke="#8884d8" /> 
+                    <Line type="monotone" dataKey="y" stroke="#8884d8" /> 
                 </LineChart>
             </ResponsiveContainer>
         </div>
