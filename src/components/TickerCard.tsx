@@ -12,13 +12,13 @@ const TickerCard = ({ ticker, axisValues} : Props) => {
     const closingPrice = axisValues[axisValues.length - 1].y;
 
     return(
-        <div className={`flex flex-col text-xs p-2 rounded-lg shadow-xl bg-[#1f1e1e] text-white space-y-2 items-center w-full`}>
+        <div className="flex flex-col text-xs p-2 rounded-lg shadow-xl bg-[#1f1e1e] text-white space-y-2 items-center flex-grow ">
             <div className="w-full flex justify-between">
                 <p>{ticker}</p>
                 <p>${closingPrice}</p>
             </div>
-            
-            <ResponsiveContainer width="100%" height={25}>
+
+            <ResponsiveContainer width="100%" height={100}>
                 <LineChart data={axisValues}>
                     <XAxis dataKey="x" hide={true}/> 
                     <YAxis domain={[minClose, maxClose]} hide={true}/>
