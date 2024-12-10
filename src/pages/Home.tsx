@@ -1,12 +1,34 @@
 import Button from "../components/Button";
 import NavBar from "../components/NavBar";
 import TickerCard from "../components/TickerCard";
+import { useState, useEffect } from "react";
+import { fetchHomeTickers } from "../api/homeTickers";
 
+interface FiveDayData{
+  [key: string]:{
+    prices: { x: string; y: number }[]
+  }
+}
 const Home = () => {
+  const [ fiveDaysPrice, setFiveDaysPrice ] = useState<FiveDayData>({});
+
+  // iterate over tickers arr to fetch last 5 days closing values
+  useEffect(() =>{
+    const tickerList = ["AAPL", "VOO", "MU", "QQQM", "NVDA", "AMD"];
+    //const tickerList = ["AAPL"]
+    tickerList.forEach((ticker) => {
+      const amd_price=fetchHomeTickers(ticker);
+      setFiveDaysPrice(prevState => ({
+        ...prevState,
+        [ticker]: {prices: amd_price}
+      }))
+    })
+  },[]);
+  
   const getStarted = () =>{
     console.log("get started");
   }
-  const historicalData = [ { date: '2024-12-02', close: 239.59 }, { date: '2024-12-03', close: 242.65 }, { date: '2024-12-04', close: 243.01 }, { date: '2024-12-05', close: 243.04 }, { date: '2024-12-06', close: 242.84 },];
+
   return (
     <div className="lg:max-w-7xl mx-auto px-6 min-h-dvh flex flex-col text-white">
 
@@ -14,45 +36,44 @@ const Home = () => {
         <NavBar />
       </header>
 
-      <main className="flex flex-col justify-center items-center flex-grow space-y-6">
-        <p className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 text-center text-2xl md:text-6xl">
+      <main className="flex flex-col justify-center items-center flex-grow">
+        
+        <p className="pt-56 md:pt-0 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 text-center text-2xl md:text-6xl">
           Minimalistic Portfolio Tracker for Retail Investors
         </p>
-        <Button value="Get Started" onClick={getStarted}/>
+        <div className="pt-8">
+          <Button value="Get Started" onClick={getStarted}/>
+        </div>
         
+ 
+
         {/* Scroll animation - Normal viewport */}
-        <div className="pt-4 w-full overflow-x-hidden hidden md:block">
-          <div className="flex text-black font-semibold animate-scroll w-max"  style={{ willChange: 'transform'}}>
-            <div className="min-w-36 mx-6">
-              <TickerCard ticker="NVDA" closingPrice={223.41} historical={historicalData}/>
-            </div>
-            <div className="min-w-36 mx-6">
-              <TickerCard ticker="AAPL" closingPrice={223.41} historical={historicalData}/>
-            </div>
-            <div className="min-w-36 mx-6">
-              <TickerCard ticker="AMD" closingPrice={223.41} historical={historicalData}/>
-            </div>
-            <div className="min-w-36 mx-6">
-              <TickerCard ticker="MU" closingPrice={223.41} historical={historicalData}/>
-            </div>
+        <div className="pt-24 w-full overflow-x-hidden hidden md:block">
+          <div className="flex text-black font-semibold animate-scroll w-max" style={{ willChange: 'transform'}}>
+            {
+              Object.entries(fiveDaysPrice).map(([symbol, data])=>(
+               <div key={symbol} className="min-w-64 mx-6 flex">
+                <TickerCard ticker={symbol} axisValues={data.prices}/>
+               </div> 
+              ))
+            }
           </div>
-          <p className="pt-4 text-xs text-center">*Last 5 days closing price as of 12/9/2024</p>
+          <p className="pt-4 text-xs text-center">*Last 5 days closing price as of </p>
         </div>
 
-        {/* No animation view - Mobile viewport */}
-        <div className="pt-4 w-full overflow-x-hidden md:hidden">
-          <div className="flex flex-col text-black font-semibold space-y-6">
-            <div className="mx-14">
-              <TickerCard ticker="NVDA" closingPrice={223.41} historical={historicalData}/>
-            </div>
-            <div className="mx-14">
-              <TickerCard ticker="AAPL" closingPrice={223.41} historical={historicalData}/>
-            </div>
-            <div className="mx-14">
-              <TickerCard ticker="AMD" closingPrice={223.41} historical={historicalData}/>
-            </div>
+        {/* No animation  - Mobile viewport */}
+        {/* Removed animation because iOS mobile safari flicker on animation restart*/}
+        <div className="pt-16 w-full overflow-x-hidden md:hidden">
+          <div className="flex flex-col text-black font-semibold  space-y-8">
+          {
+            Object.entries(fiveDaysPrice).map(([symbol, data])=>(
+              <div key={symbol} className="mx-6 flex">
+                <TickerCard ticker={symbol} axisValues={data.prices}/>
+              </div> 
+            ))
+          }
           </div>
-          <p className="pt-4 text-xs text-center">*Last 5 days closing price as of 12/9/2024</p>
+          <p className="py-4 text-xs text-center">*Last 5 days closing price as of 12/9/2024</p>
         </div>
         
 
