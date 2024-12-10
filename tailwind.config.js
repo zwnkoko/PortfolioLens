@@ -39,7 +39,7 @@ export default {
         }
       },
       animation:{
-        scroll: 'scroll 10s linear infinite 1s',
+        scroll: 'scroll 20s linear infinite 1s',
       }
     },
   },
