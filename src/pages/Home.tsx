@@ -32,6 +32,14 @@ const Home = () => {
     fetchData();
   },[]);
   
+  const getLastDate = () => {
+    const lastTicker = Object.values(fiveDaysPrice)[0];
+    if (lastTicker && lastTicker.prices.length > 0) { 
+      return lastTicker.prices[lastTicker.prices.length - 1].x;
+    }
+    return "";
+  }
+  
   const getStarted = () =>{
     console.log("get started");
   }
@@ -57,6 +65,14 @@ const Home = () => {
         {/* Scroll animation - Normal viewport */}
         <div className="pt-24 w-full overflow-x-hidden hidden md:block">
           <div className="flex text-black font-semibold animate-scroll w-max" style={{ willChange: 'transform'}}>
+            {/* Run twice for seamless scrolling effect */}
+            {
+              Object.entries(fiveDaysPrice).map(([symbol, data])=>(
+               <div key={symbol} className="min-w-64 mx-6 flex">
+                <TickerCard ticker={symbol} axisValues={data.prices}/>
+               </div> 
+              ))
+            }
             {
               Object.entries(fiveDaysPrice).map(([symbol, data])=>(
                <div key={symbol} className="min-w-64 mx-6 flex">
@@ -65,7 +81,7 @@ const Home = () => {
               ))
             }
           </div>
-          <p className="pt-4 text-xs text-center">*Last 5 days closing price as of </p>
+          <p className="pt-4 text-xs text-center">*Last 5 days closing price as of {getLastDate()}</p>
         </div>
 
         {/* No animation  - Mobile viewport */}
@@ -80,7 +96,7 @@ const Home = () => {
             ))
           }
           </div>
-          <p className="py-4 text-xs text-center">*Last 5 days closing price as of 12/9/2024</p>
+          <p className="py-4 text-xs text-center">*Last 5 days closing price as of {getLastDate()}</p>
         </div>
         
 
