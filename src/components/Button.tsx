@@ -25,7 +25,7 @@ const Button = ({ value, prefix, altPrefix, onClick, variant = "primary" }: Prop
         {prefix && (
           <img src={prefix} alt={altPrefix} className="h-6 pr-2" />
         )}
-        <p className="text-xs lg:text-base">{value}</p>
+        <p className="text-sm lg:text-base">{value}</p>
       </div>
     </button>
   );
