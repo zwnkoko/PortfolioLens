@@ -1,36 +1,11 @@
 import Button from "../components/Button";
 import NavBar from "../components/NavBar";
 import TickerCard from "../components/TickerCard";
-import { useState, useEffect } from "react";
-import { fetchHomeTickers } from "../api/homeTickers";
+import useTickerPrices from "../hooks/useTickerPrices";
 
-interface FiveDayData{
-  [key: string]:{
-    prices: { x: string; y: number }[]
-  }
-}
 const Home = () => {
-  const [ fiveDaysPrice, setFiveDaysPrice ] = useState<FiveDayData>({});
 
-  // iterate over tickers arr to fetch last 5 days closing values
-  useEffect(() =>{
-    const fetchData = async () =>{
-      const tickerList = ["AAPL", "VOO", "MU", "QQQM", "NVDA", "AMD"];
-      //const tickerList = ["AAPL"]
-      for(const ticker of tickerList){
-        try{
-          const prices = await fetchHomeTickers(ticker);
-          setFiveDaysPrice(prevState => ({
-            ...prevState,
-            [ticker]: { prices }
-          }))
-        } catch(error){
-          console.error(`Error fetching data for ${ticker}:`, error);
-        }
-      }
-    }
-    fetchData();
-  },[]);
+  const {fiveDaysPrice, apiLimitReached, errorOccured } = useTickerPrices(); 
   
   const getLastDate = () => {
     const lastTicker = Object.values(fiveDaysPrice)[0];
@@ -45,6 +20,9 @@ const Home = () => {
   }
 
   return (
+    <>
+    {apiLimitReached && <div className="font-semibold text-center bg-secondary">API limit reached. Try again a few hours later.</div>}
+    {errorOccured && <div className="font-semibold text-center bg-secondary">Error occured while fetching stock data</div>}
     <div className="lg:max-w-7xl mx-auto px-6 min-h-dvh flex flex-col text-white">
 
       <header>
@@ -103,6 +81,7 @@ const Home = () => {
       </main>
 
     </div>
+    </>
   );
 };
 
