@@ -16,9 +16,10 @@ export const fetchHomeTickers = async (ticker : string) => {
       return prices;
     } catch(error) {
         console.error("Error fetching home tickers data", error);
-        if(error instanceof Error && error.message.includes("Request Error! Status: ${response.status}")){
+        if(error instanceof Error && error.message.includes("Request Error! Status:")){
           const statusCode = error.message.split(': ')[1];
           statusCode == "429" && alert("Max API request reached! Try again tomorrow");
+          console.error(`Failed with status code: ${statusCode}`);
         }
         throw(error);
     }
