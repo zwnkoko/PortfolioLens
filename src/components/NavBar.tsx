@@ -36,7 +36,7 @@ const NavBar = () => {
             </div>
             <div>
               <Button 
-                prefix="src/assets/github-mark-white.svg"
+                prefix={EXTERNAL_LINKS.githubLogo}
                 altPrefix="github"
                 onClick={openGhub}
                 value="Source Code" 
