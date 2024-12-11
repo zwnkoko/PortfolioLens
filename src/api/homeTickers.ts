@@ -5,6 +5,9 @@ export const fetchHomeTickers = async (ticker : string) => {
     const endPoint = historicalDataEP(ticker);
     try{
       const response = await fetch(endPoint);
+      if(!response.ok){
+        throw new Error("Request Error! Status: ${response.status}");
+      }
       const data = await response.json();
       const fiveDaysPrices = data.historical.slice(0,5).reverse();
       for(let price of fiveDaysPrices){
@@ -13,6 +16,10 @@ export const fetchHomeTickers = async (ticker : string) => {
       return prices;
     } catch(error) {
         console.error("Error fetching home tickers data", error);
+        if(error instanceof Error && error.message.includes("Request Error! Status: ${response.status}")){
+          const statusCode = error.message.split(': ')[1];
+          statusCode == "429" && alert("Max API request reached! Try again tomorrow");
+        }
         throw(error);
     }
 }
