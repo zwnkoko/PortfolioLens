@@ -1,50 +1,20 @@
 import Button from "../components/Button";
 import NavBar from "../components/NavBar";
 import TickerCard from "../components/TickerCard";
-import { useState, useEffect } from "react";
-import { fetchHomeTickers } from "../api/homeTickers";
+import useTickerPrices from "../hooks/useTickerPrices";
 
-interface FiveDayData{
-  [key: string]:{
-    prices: { x: string; y: number }[]
-  }
-}
 const Home = () => {
-  const [ fiveDaysPrice, setFiveDaysPrice ] = useState<FiveDayData>({});
 
-  // iterate over tickers arr to fetch last 5 days closing values
-  useEffect(() =>{
-    const fetchData = async () =>{
-      const tickerList = ["AAPL", "VOO", "MU", "QQQM", "NVDA", "AMD"];
-      //const tickerList = ["AAPL"]
-      for(const ticker of tickerList){
-        try{
-          const prices = await fetchHomeTickers(ticker);
-          setFiveDaysPrice(prevState => ({
-            ...prevState,
-            [ticker]: { prices }
-          }))
-        } catch(error){
-          console.error(`Error fetching data for ${ticker}:`, error);
-        }
-      }
-    }
-    fetchData();
-  },[]);
-  
-  const getLastDate = () => {
-    const lastTicker = Object.values(fiveDaysPrice)[0];
-    if (lastTicker && lastTicker.prices.length > 0) { 
-      return lastTicker.prices[lastTicker.prices.length - 1].x;
-    }
-    return "";
-  }
+  const {fiveDaysPrice, apiLimitReached, errorOccured, lastDate } = useTickerPrices(); 
   
   const getStarted = () =>{
     console.log("get started");
   }
 
   return (
+    <>
+    {apiLimitReached && <div className="font-semibold text-center bg-secondary">API limit reached. Try again a few hours later.</div>}
+    {errorOccured && <div className="font-semibold text-center bg-secondary">Error occured while fetching stock data</div>}
     <div className="lg:max-w-7xl mx-auto px-6 min-h-dvh flex flex-col text-white">
 
       <header>
@@ -52,7 +22,6 @@ const Home = () => {
       </header>
 
       <main className="flex flex-col justify-center items-center flex-grow">
-        
         <p className="pt-56 md:pt-0 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 text-center text-2xl md:text-6xl">
           Minimalistic Portfolio Tracker for Retail Investors
         </p>
@@ -60,8 +29,6 @@ const Home = () => {
           <Button value="Get Started" onClick={getStarted}/>
         </div>
         
- 
-
         {/* Scroll animation - Normal viewport */}
         <div className="pt-24 w-full overflow-x-hidden hidden md:block">
           <div className="flex text-black font-semibold animate-scroll w-max" style={{ willChange: 'transform'}}>
@@ -81,7 +48,7 @@ const Home = () => {
               ))
             }
           </div>
-          <p className="pt-4 text-xs text-center">*Last 5 days closing price as of {getLastDate()}</p>
+          <p className="pt-4 text-xs text-center">*Last 5 days closing price as of {lastDate}</p>
         </div>
 
         {/* No animation  - Mobile viewport */}
@@ -96,13 +63,12 @@ const Home = () => {
             ))
           }
           </div>
-          <p className="py-4 text-xs text-center">*Last 5 days closing price as of {getLastDate()}</p>
+          <p className="py-4 text-xs text-center">*Last 5 days closing price as of {lastDate}</p>
         </div>
-        
-
       </main>
 
     </div>
+    </>
   );
 };
 
