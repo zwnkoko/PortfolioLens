@@ -2,6 +2,7 @@ import Button from "../components/Button";
 import NavBar from "../components/NavBar";
 import TickerCard from "../components/TickerCard";
 import useTickerPrices from "../hooks/useTickerPrices";
+import {GestureWrapper} from "../components/MotionWrapper";
 
 const Home = () => {
 
@@ -26,7 +27,9 @@ const Home = () => {
           Minimalistic Portfolio Tracker for Retail Investors
         </p>
         <div className="pt-8">
-          <Button value="Get Started" onClick={getStarted}/>
+          <GestureWrapper>
+            <Button value="Get Started" onClick={getStarted}/>
+          </GestureWrapper>
         </div>
         
         {/* Scroll animation - Normal viewport */}
