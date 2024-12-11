@@ -1,4 +1,4 @@
-import { historicalDataEP } from "../endpoints";
+import { historicalDataEP } from "./endpoints";
 
 
 /* 
